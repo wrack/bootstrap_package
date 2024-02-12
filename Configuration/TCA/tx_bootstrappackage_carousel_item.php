@@ -46,7 +46,8 @@ return [
             'text_and_image' => 'content-bootstrappackage-carousel-item-textandimage',
             'background_image' => 'content-bootstrappackage-carousel-item-backgroundimage',
             'html' => 'content-bootstrappackage-carousel-item-html'
-        ]
+        ],
+        'ignorePageTypeRestriction' => true
     ],
     'interface' => [
         'showRecordFieldList' => '

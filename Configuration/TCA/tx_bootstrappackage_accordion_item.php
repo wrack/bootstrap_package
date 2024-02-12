@@ -38,7 +38,8 @@ return [
         ],
         'typeicon_classes' => [
             'default' => 'content-bootstrappackage-accordion-item',
-        ]
+        ],
+        'ignorePageTypeRestriction' => true
     ],
     'interface' => [
         'showRecordFieldList' => '

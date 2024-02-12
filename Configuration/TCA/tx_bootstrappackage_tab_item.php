@@ -39,6 +39,7 @@ return [
         'typeicon_classes' => [
             'default' => 'content-bootstrappackage-tab-item'
         ],
+        'ignorePageTypeRestriction' => true
     ],
     'interface' => [
         'showRecordFieldList' => '

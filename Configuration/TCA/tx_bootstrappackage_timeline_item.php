@@ -39,6 +39,7 @@ return [
         'typeicon_classes' => [
             'default' => 'content-bootstrappackage-timeline-item'
         ],
+        'ignorePageTypeRestriction' => true
     ],
     'interface' => [
         'showRecordFieldList' => '

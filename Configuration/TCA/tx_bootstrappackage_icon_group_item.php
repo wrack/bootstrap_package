@@ -38,6 +38,7 @@ return [
         'typeicon_classes' => [
             'default' => 'content-bootstrappackage-icon-group-item'
         ],
+        'ignorePageTypeRestriction' => true
     ],
     'interface' => [
         'showRecordFieldList' => '
