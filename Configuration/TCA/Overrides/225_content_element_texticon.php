@@ -162,9 +162,18 @@ $GLOBALS['TCA']['tt_content']['columns'] = array_replace_recursive(
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.left', 'left'],
-                    ['LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.right', 'right'],
-                    ['LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.top', 'top'],
+                    [
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.left',
+                        'value' => 'left'
+                    ],
+                    [
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.right',
+                        'value' => 'right'
+                    ],
+                    [
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.top',
+                        'value' => 'top'
+                    ],
                 ],
             ],
         ],
@@ -176,9 +185,18 @@ $GLOBALS['TCA']['tt_content']['columns'] = array_replace_recursive(
                 'renderType' => 'selectSingle',
                 'default' => 'default',
                 'items' => [
-                    ['LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.default', 'default'],
-                    ['LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.square', 'square'],
-                    ['LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.circle', 'circle'],
+                    [
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.default',
+                        'value' => 'default'
+                    ],
+                    [
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.square',
+                        'value' => 'square'
+                    ],
+                    [
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.circle',
+                        'value' => 'circle'
+                    ],
                 ],
             ],
         ],
@@ -188,10 +206,22 @@ $GLOBALS['TCA']['tt_content']['columns'] = array_replace_recursive(
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.default', 'default'],
-                    ['LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.medium', 'medium'],
-                    ['LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.large', 'large'],
-                    ['LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.awesome', 'awesome'],
+                    [
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.default',
+                        'value' => 'default'
+                    ],
+                    [
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.medium',
+                        'value' => 'medium'
+                    ],
+                    [
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.large',
+                        'value' => 'large'
+                    ],
+                    [
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.awesome',
+                        'value' => 'awesome'
+                    ],
                 ],
             ],
         ],
@@ -199,8 +229,7 @@ $GLOBALS['TCA']['tt_content']['columns'] = array_replace_recursive(
             'displayCond' => 'FIELD:icon_type:!=:default',
             'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:field.icon_color',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'colorpicker',
+                'type' => 'color',
                 'default' => '#FFFFFF',
             ],
         ],
@@ -208,8 +237,7 @@ $GLOBALS['TCA']['tt_content']['columns'] = array_replace_recursive(
             'displayCond' => 'FIELD:icon_type:!=:default',
             'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:field.icon_background',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'colorpicker',
+                'type' => 'color',
                 'default' => '#333333',
             ],
         ],

@@ -18,8 +18,14 @@ $GLOBALS['TCA']['tt_content']['columns']['frame_layout'] = [
         'type' => 'select',
         'renderType' => 'selectSingle',
         'items' => [
-            ['default', 'default'],
-            ['embedded', 'embedded']
+            [
+                'label' => 'default',
+                'value' => 'default'
+            ],
+            [
+                'label' => 'embedded',
+                'value' => 'embedded'
+            ]
         ]
     ],
     'l10n_mode' => 'exclude',
@@ -32,13 +38,34 @@ $GLOBALS['TCA']['tt_content']['columns']['background_color_class'] = [
         'type' => 'select',
         'renderType' => 'selectSingle',
         'items' => [
-            ['none', 'none'],
-            ['primary', 'primary'],
-            ['secondary', 'secondary'],
-            ['tertiary', 'tertiary'],
-            ['quaternary', 'quaternary'],
-            ['light', 'light'],
-            ['dark', 'dark']
+            [
+                'label' => 'none',
+                'value' => 'none'
+            ],
+            [
+                'label' => 'primary',
+                'value' => 'primary'
+            ],
+            [
+                'label' => 'secondary',
+                'value' => 'secondary'
+            ],
+            [
+                'label' => 'tertiary',
+                'value' => 'tertiary'
+            ],
+            [
+                'label' => 'quaternary',
+                'value' => 'quaternary'
+            ],
+            [
+                'label' => 'light',
+                'value' => 'light'
+            ],
+            [
+                'label' => 'dark',
+                'value' => 'dark'
+            ]
         ]
     ],
     'l10n_mode' => 'exclude',
@@ -157,9 +184,18 @@ $GLOBALS['TCA']['tt_content']['columns']['aspect_ratio'] = [
         'type' => 'select',
         'renderType' => 'selectSingle',
         'items' => [
-            ['LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:ratio.4_3', (string) (4/3)],
-            ['LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:ratio.16_9', (string) (16/9)],
-            ['LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:ratio.1_1', (string) (1/1)],
+            [
+                'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:ratio.4_3',
+                'value' => (string) (4/3)
+            ],
+            [
+                'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:ratio.16_9',
+                'value' => (string) (16/9)
+            ],
+            [
+                'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:ratio.1_1',
+                'value' => (string) (1/1)
+            ],
         ]
     ],
     'l10n_mode' => 'exclude',
@@ -167,9 +203,9 @@ $GLOBALS['TCA']['tt_content']['columns']['aspect_ratio'] = [
 $GLOBALS['TCA']['tt_content']['columns']['items_per_page'] = [
     'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:field.items_per_page',
     'config' => [
-        'type' => 'input',
+        'type' => 'number',
         'size' => 2,
-        'eval' => 'trim,int',
+        'format' => 'integer',
         'range' => [
             'lower' => 1,
             'upper' => 50,

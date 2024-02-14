@@ -19,7 +19,6 @@ return [
         'sortby' => 'sorting',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'title' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item',
         'type' => 'item_type',
         'delete' => 'deleted',
@@ -48,23 +47,6 @@ return [
             'html' => 'content-bootstrappackage-carousel-item-html'
         ],
         'ignorePageTypeRestriction' => true
-    ],
-    'interface' => [
-        'showRecordFieldList' => '
-            hidden,
-            tt_content,
-            header,
-            header_layout,
-            header_class,
-            subheader,
-            subheader_layout,
-            subheader_class
-            bodytext,
-            image,
-            text_color,
-            background_color,
-            background_image
-        ',
     ],
     'types' => [
         '1' => [
@@ -267,44 +249,43 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.item_type.header',
-                        'header',
-                        'content-bootstrappackage-carousel-item-header'
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.item_type.header',
+                        'value' => 'header',
+                        'icon' => 'content-bootstrappackage-carousel-item-header'
                     ],
                     [
-                        'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.item_type.text',
-                        'text',
-                        'content-bootstrappackage-carousel-item-text'
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.item_type.text',
+                        'value' => 'text',
+                        'icon' => 'content-bootstrappackage-carousel-item-text'
                     ],
                     [
-                        'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.item_type.calltoaction',
-                        'call_to_action',
-                        'content-bootstrappackage-carousel-item-calltoaction'
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.item_type.calltoaction',
+                        'value' => 'call_to_action',
+                        'icon' => 'content-bootstrappackage-carousel-item-calltoaction'
                     ],
                     [
-                        'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.item_type.image',
-                        'image',
-                        'content-bootstrappackage-carousel-item-image'
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.item_type.image',
+                        'value' => 'image',
+                        'icon' => 'content-bootstrappackage-carousel-item-image'
                     ],
                     [
-                        'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.item_type.textandimage',
-                        'text_and_image',
-                        'content-bootstrappackage-carousel-item-textandimage'
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.item_type.textandimage',
+                        'value' => 'text_and_image',
+                        'icon' => 'content-bootstrappackage-carousel-item-textandimage'
                     ],
                     [
-                        'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.item_type.backgroundimage',
-                        'background_image',
-                        'content-bootstrappackage-carousel-item-backgroundimage'
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.item_type.backgroundimage',
+                        'value' => 'background_image',
+                        'icon' => 'content-bootstrappackage-carousel-item-backgroundimage'
                     ],
                     [
-                        'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.item_type.html',
-                        'html',
-                        'content-bootstrappackage-carousel-item-html'
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.item_type.html',
+                        'value' => 'html',
+                        'icon' => 'content-bootstrappackage-carousel-item-html'
                     ],
                 ],
                 'default' => 'header',
                 'authMode' => $GLOBALS['TYPO3_CONF_VARS']['BE']['explicitADmode'] ?? 'explicitAllow',
-                'authMode_enforce' => 'strict'
             ],
             'l10n_mode' => 'exclude',
         ],
@@ -314,9 +295,7 @@ return [
             'config' => [
                 'type' => 'check',
                 'items' => [
-                    '1' => [
-                        '0' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:hidden.I.0'
-                    ]
+                    ['label' => '', 'value' => ''],
                 ]
             ]
         ],
@@ -351,35 +330,17 @@ return [
             'exclude' => 1,
             'label' => 'LLL:' . $generalLanguageFile . ':LGL.language',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'foreign_table' => 'sys_language',
-                'foreign_table_where' => 'ORDER BY sys_language.title',
-                'items' => [
-                    [
-                        'LLL:' . $generalLanguageFile . ':LGL.allLanguages',
-                        -1
-                    ],
-                    [
-                        'LLL:' . $generalLanguageFile . ':LGL.default_value',
-                        0
-                    ]
-                ],
-                'allowNonIdValues' => true,
+                'type' => 'language',
             ]
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => 1,
             'label' => 'LLL:' . $generalLanguageFile . ':LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [
-                        '',
-                        0
-                    ]
+                    ['label' => '', 'value' => 0],
                 ],
                 'foreign_table' => 'tx_bootstrappackage_carousel_item',
                 'foreign_table_where' => 'AND tx_bootstrappackage_carousel_item.pid=###CURRENT_PID### AND tx_bootstrappackage_carousel_item.sys_language_uid IN (-1,0)',
@@ -398,13 +359,34 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['custom', 'custom'],
-                    ['primary', 'primary'],
-                    ['secondary', 'secondary'],
-                    ['tertiary', 'tertiary'],
-                    ['quaternary', 'quaternary'],
-                    ['light', 'light'],
-                    ['dark', 'dark']
+                    [
+                        'label' => 'custom',
+                        'value' => 'custom'
+                    ],
+                    [
+                        'label' => 'primary',
+                        'value' => 'primary'
+                    ],
+                    [
+                        'label' => 'secondary',
+                        'value' => 'secondary'
+                    ],
+                    [
+                        'label' => 'tertiary',
+                        'value' => 'tertiary'
+                    ],
+                    [
+                        'label' => 'quaternary',
+                        'value' => 'quaternary'
+                    ],
+                    [
+                        'label' => 'light',
+                        'value' => 'light'
+                    ],
+                    [
+                        'label' => 'dark',
+                        'value' => 'dark'
+                    ]
                 ],
                 'default' => 'secondary'
             ],
@@ -414,19 +396,10 @@ return [
             'exclude' => 1,
             'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.link',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputLink',
-                'size' => 50,
-                'max' => 1024,
-                'eval' => 'trim',
-                'fieldControl' => [
-                    'linkPopup' => [
-                        'options' => [
-                            'title' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.link',
-                        ],
-                    ],
+                'type' => 'link',
+                'appearance' => [
+                    'browserTitle' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.link',
                 ],
-                'softref' => 'typolink'
             ],
         ],
         'header' => [
@@ -435,7 +408,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 50,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'header_layout' => [
@@ -446,20 +420,20 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'H1',
-                        '1'
+                        'label' => 'H1',
+                        'value' => '1'
                     ],
                     [
-                        'H2',
-                        '2'
+                        'label' => 'H2',
+                        'value' => '2'
                     ],
                     [
-                        'H3',
-                        '3'
+                        'label' => 'H3',
+                        'value' => '3'
                     ],
                     [
-                        'H4',
-                        '4'
+                        'label' => 'H4',
+                        'value' => '4'
                     ],
                 ],
                 'default' => '1'
@@ -474,20 +448,20 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.header_position.default',
-                        ''
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.header_position.default',
+                        'value' => ''
                     ],
                     [
-                        'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.header_position.center',
-                        'center'
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.header_position.center',
+                        'value' => 'center'
                     ],
                     [
-                        'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.header_position.right',
-                        'right'
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.header_position.right',
+                        'value' => 'right'
                     ],
                     [
-                        'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.header_position.left',
-                        'left'
+                        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.header_position.left',
+                        'value' => 'left'
                     ]
                 ],
                 'default' => ''
@@ -500,12 +474,30 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 'none'],
-                    ['h1', 'h1'],
-                    ['h2', 'h2'],
-                    ['h3', 'h3'],
-                    ['h4', 'h4'],
-                    ['h5', 'h5']
+                    [
+                        'label' => '',
+                        'value' => 'none'
+                    ],
+                    [
+                        'label' => 'h1',
+                        'value' => 'h1'
+                    ],
+                    [
+                        'label' => 'h2',
+                        'value' => 'h2'
+                    ],
+                    [
+                        'label' => 'h3',
+                        'value' => 'h3'
+                    ],
+                    [
+                        'label' => 'h4',
+                        'value' => 'h4'
+                    ],
+                    [
+                        'label' => 'h5',
+                        'value' => 'h5'
+                    ]
                 ]
             ],
             'l10n_mode' => 'exclude',
@@ -527,16 +519,16 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'H2',
-                        '2'
+                        'label' => 'H2',
+                        'value' => '2'
                     ],
                     [
-                        'H3',
-                        '3'
+                        'label' => 'H3',
+                        'value' => '3'
                     ],
                     [
-                        'H4',
-                        '4'
+                        'label' => 'H4',
+                        'value' => '4'
                     ],
                 ],
                 'default' => '2'
@@ -550,12 +542,30 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 'none'],
-                    ['h1', 'h1'],
-                    ['h2', 'h2'],
-                    ['h3', 'h3'],
-                    ['h4', 'h4'],
-                    ['h5', 'h5']
+                    [
+                        'label' => '',
+                        'value' => 'none'
+                    ],
+                    [
+                        'label' => 'h1',
+                        'value' => 'h1'
+                    ],
+                    [
+                        'label' => 'h2',
+                        'value' => 'h2'
+                    ],
+                    [
+                        'label' => 'h3',
+                        'value' => 'h3'
+                    ],
+                    [
+                        'label' => 'h4',
+                        'value' => 'h4'
+                    ],
+                    [
+                        'label' => 'h5',
+                        'value' => 'h5'
+                    ]
                 ]
             ],
             'l10n_mode' => 'exclude',
@@ -641,8 +651,7 @@ return [
             'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.text_color',
             'displayCond' => 'FIELD:layout:=:custom',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'colorpicker',
+                'type' => 'color',
                 'default' => '#FFFFFF',
             ],
             'l10n_mode' => 'exclude',
@@ -652,8 +661,7 @@ return [
             'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:carousel_item.background_color',
             'displayCond' => 'FIELD:layout:=:custom',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'colorpicker',
+                'type' => 'color',
                 'default' => '#333333',
             ],
             'l10n_mode' => 'exclude',

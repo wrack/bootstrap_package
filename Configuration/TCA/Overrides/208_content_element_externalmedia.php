@@ -83,8 +83,14 @@ $GLOBALS['TCA']['tt_content']['columns'] = array_replace_recursive(
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['16:9', '16by9'],
-                    ['4:3', '4by3'],
+                    [
+                        'label' => '16:9',
+                        'value' => '16by9'
+                    ],
+                    [
+                        'label' => '4:3',
+                        'value' => '4by3'
+                    ],
                 ]
             ]
         ]

@@ -19,7 +19,6 @@ return [
         'sortby' => 'sorting',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'title' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:icon_group_item',
         'delete' => 'deleted',
         'versioningWS' => true,
@@ -39,16 +38,6 @@ return [
             'default' => 'content-bootstrappackage-icon-group-item'
         ],
         'ignorePageTypeRestriction' => true
-    ],
-    'interface' => [
-        'showRecordFieldList' => '
-            hidden,
-            tt_content,
-            header,
-            subheader,
-            bodytext,
-            icon_file,
-        ',
     ],
     'types' => [
         '1' => [
@@ -113,9 +102,7 @@ return [
             'config' => [
                 'type' => 'check',
                 'items' => [
-                    '1' => [
-                        '0' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:hidden.I.0'
-                    ]
+                    ['label' => '', 'value' => ''],
                 ]
             ]
         ],
@@ -150,35 +137,17 @@ return [
             'exclude' => 1,
             'label' => 'LLL:' . $generalLanguageFile . ':LGL.language',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'foreign_table' => 'sys_language',
-                'foreign_table_where' => 'ORDER BY sys_language.title',
-                'items' => [
-                    [
-                        'LLL:' . $generalLanguageFile . ':LGL.allLanguages',
-                        -1
-                    ],
-                    [
-                        'LLL:' . $generalLanguageFile . ':LGL.default_value',
-                        0
-                    ]
-                ],
-                'allowNonIdValues' => true,
+                'type' => 'language',
             ]
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => 1,
             'label' => 'LLL:' . $generalLanguageFile . ':LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [
-                        '',
-                        0
-                    ]
+                    ['label' => '', 'value' => 0]
                 ],
                 'foreign_table' => 'tx_bootstrappackage_icon_group_item',
                 'foreign_table_where' => 'AND tx_bootstrappackage_icon_group_item.pid=###CURRENT_PID### AND tx_bootstrappackage_icon_group_item.sys_language_uid IN (-1,0)',
@@ -195,7 +164,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 50,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'subheader' => [
@@ -221,19 +191,10 @@ return [
         'link' => [
             'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:icon_group_item.link',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputLink',
-                'size' => 50,
-                'max' => 1024,
-                'eval' => 'trim',
-                'fieldControl' => [
-                    'linkPopup' => [
-                        'options' => [
-                            'title' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:icon_group_item.link',
-                        ],
-                    ],
+                'type' => 'link',
+                'appearance' => [
+                    'browserTitle' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:icon_group_item.link',
                 ],
-                'softref' => 'typolink'
             ],
             'l10n_mode' => 'exclude',
         ],
