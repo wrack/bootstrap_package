@@ -174,8 +174,7 @@ $GLOBALS['TCA']['tt_content']['columns']['file_folder'] = [
     'exclude' => true,
     'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:field.file_folder',
     'config' => [
-        'type' => 'group',
-        'internal_type' => 'folder',
+        'type' => 'folder',
     ]
 ];
 $GLOBALS['TCA']['tt_content']['columns']['aspect_ratio'] = [
@@ -220,9 +219,9 @@ $GLOBALS['TCA']['tt_content']['columns']['items_per_page'] = [
     'tt_content',
     'imageorient',
     [
-        'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:field.imageorient.125',
-        (string) 125,
-        'content-bootstrappackage-beside-text-img-centered-right'
+        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:field.imageorient.125',
+        'value' => (string) 125,
+        'icon' => 'content-bootstrappackage-beside-text-img-centered-right'
     ],
     (string) 125,
     'after'
@@ -231,9 +230,9 @@ $GLOBALS['TCA']['tt_content']['columns']['items_per_page'] = [
     'tt_content',
     'imageorient',
     [
-        'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:field.imageorient.126',
-        (string) 126,
-        'content-bootstrappackage-beside-text-img-centered-left'
+        'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:field.imageorient.126',
+        'value' => (string) 126,
+        'icon' => 'content-bootstrappackage-beside-text-img-centered-left'
     ],
     (string) 126,
     'after'
