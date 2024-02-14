@@ -21,13 +21,16 @@ class IconService
     public function getIconSetItems(array &$configuration): void
     {
         $iconSets = [];
-        $iconSets[] = ['LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.none', ''];
+        $iconSets[] = [
+            'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.none',
+            'value' => ''
+        ];
 
         $iconProviders = $this->getIconProviders();
         foreach ($iconProviders as $iconProvider) {
             $iconSets[] = [
-                $iconProvider->getName(),
-                $iconProvider->getIdentifier()
+                'label' => $iconProvider->getName(),
+                'value' => $iconProvider->getIdentifier()
             ];
         }
 
@@ -38,9 +41,9 @@ class IconService
     {
         $iconItems = [];
         $iconItems[] = [
-            'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.none',
-            0,
-            'EXT:bootstrap_package/Resources/Public/Images/Icons/none.svg'
+            'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.none',
+            'value' => 0,
+            'icon' => 'EXT:bootstrap_package/Resources/Public/Images/Icons/none.svg'
         ];
 
         $iconSetField = $configuration['config']['itemsProcConfig']['iconSetField'] ?? 'icon_set';
@@ -50,9 +53,9 @@ class IconService
             $icons = $iconProvider->getIconList()->getIcons();
             foreach ($icons as $icon) {
                 $iconItems[] = [
-                    $icon->getName(),
-                    $icon->getIdentifier(),
-                    $icon->getPreviewImage()
+                    'label' => $icon->getName(),
+                    'value' => $icon->getIdentifier(),
+                    'icon' => $icon->getPreviewImage()
                 ];
             }
         }
