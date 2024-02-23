@@ -46,7 +46,9 @@ return [
             'background_image' => 'content-bootstrappackage-carousel-item-backgroundimage',
             'html' => 'content-bootstrappackage-carousel-item-html'
         ],
-        'ignorePageTypeRestriction' => true
+        'security' => [
+            'ignorePageTypeRestriction' => true
+        ]
     ],
     'types' => [
         '1' => [

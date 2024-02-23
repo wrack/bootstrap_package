@@ -38,7 +38,9 @@ return [
         'typeicon_classes' => [
             'default' => 'content-bootstrappackage-timeline-item'
         ],
-        'ignorePageTypeRestriction' => true
+        'security' => [
+            'ignorePageTypeRestriction' => true
+        ]
     ],
     'types' => [
         '1' => [

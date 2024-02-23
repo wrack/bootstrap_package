@@ -38,7 +38,9 @@ return [
         'typeicon_classes' => [
             'default' => 'content-bootstrappackage-tab-item'
         ],
-        'ignorePageTypeRestriction' => true
+        'security' => [
+            'ignorePageTypeRestriction' => true
+        ]
     ],
     'types' => [
         '1' => [

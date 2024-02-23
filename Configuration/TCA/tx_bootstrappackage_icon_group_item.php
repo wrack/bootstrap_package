@@ -37,7 +37,9 @@ return [
         'typeicon_classes' => [
             'default' => 'content-bootstrappackage-icon-group-item'
         ],
-        'ignorePageTypeRestriction' => true
+        'security' => [
+            'ignorePageTypeRestriction' => true
+        ]
     ],
     'types' => [
         '1' => [
