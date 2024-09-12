@@ -113,9 +113,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:' . $generalLanguageFile . ':LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime',
+                'type' => 'datetime',
                 'default' => 0
             ],
             'l10n_mode' => 'exclude',
@@ -125,9 +123,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:' . $generalLanguageFile . ':LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime',
+                'type' => 'datetime',
                 'default' => 0,
                 'range' => [
                     'upper' => mktime(0, 0, 0, 1, 1, 2038)
@@ -166,10 +162,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:timeline_item.date',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'dbType' => 'datetime',
-                'eval' => 'datetime',
+                'type' => 'datetime',
                 'required' => true,
             ],
             'l10n_mode' => 'exclude',

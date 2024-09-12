@@ -224,7 +224,7 @@ page {
             1553883874 {
                 files {
                     normal = {$page.logo.file}
-                    inverted = {$page.logo.fileInverted}
+                    footer = {$page.logo.footer.file}
                 }
                 as = logo
             }
