@@ -74,12 +74,8 @@ CREATE TABLE tx_bootstrappackage_card_group_item (
     link_icon int(11) unsigned DEFAULT '0',
     link_class varchar(255) DEFAULT '' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
     deleted smallint unsigned DEFAULT '0' NOT NULL,
     hidden smallint unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
     sorting int(11) DEFAULT '0' NOT NULL,
 
     sys_language_uid int(11) DEFAULT '0' NOT NULL,
@@ -131,12 +127,8 @@ CREATE TABLE tx_bootstrappackage_carousel_item (
     background_image int(11) unsigned DEFAULT '0',
     background_image_options mediumtext,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
     deleted smallint unsigned DEFAULT '0' NOT NULL,
     hidden smallint unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
     sorting int(11) DEFAULT '0' NOT NULL,
 
     sys_language_uid int(11) DEFAULT '0' NOT NULL,
@@ -176,12 +168,8 @@ CREATE TABLE tx_bootstrappackage_accordion_item (
     imagecols tinyint(4) unsigned DEFAULT '1' NOT NULL,
     image_zoom tinyint(3) unsigned DEFAULT '0' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
     deleted smallint unsigned DEFAULT '0' NOT NULL,
     hidden smallint unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
     sorting int(11) DEFAULT '0' NOT NULL,
 
     sys_language_uid int(11) DEFAULT '0' NOT NULL,
@@ -222,12 +210,8 @@ CREATE TABLE tx_bootstrappackage_icon_group_item (
     icon_identifier varchar(255) DEFAULT '' NOT NULL,
     icon_file int(11) unsigned DEFAULT '0',
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
     deleted smallint unsigned DEFAULT '0' NOT NULL,
     hidden smallint unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
     sorting int(11) DEFAULT '0' NOT NULL,
 
     sys_language_uid int(11) DEFAULT '0' NOT NULL,
@@ -267,12 +251,8 @@ CREATE TABLE tx_bootstrappackage_tab_item (
     imagecols tinyint(4) unsigned DEFAULT '1' NOT NULL,
     image_zoom tinyint(3) unsigned DEFAULT '0' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
     deleted smallint unsigned DEFAULT '0' NOT NULL,
     hidden smallint unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
     sorting int(11) DEFAULT '0' NOT NULL,
 
     sys_language_uid int(11) DEFAULT '0' NOT NULL,
@@ -313,12 +293,8 @@ CREATE TABLE tx_bootstrappackage_timeline_item (
     icon_file int(11) unsigned DEFAULT '0',
     image int(11) unsigned DEFAULT '0',
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
     deleted smallint unsigned DEFAULT '0' NOT NULL,
     hidden smallint unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
     sorting int(11) DEFAULT '0' NOT NULL,
 
     sys_language_uid int(11) DEFAULT '0' NOT NULL,

@@ -163,6 +163,7 @@ return [
             'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:timeline_item.date',
             'config' => [
                 'type' => 'datetime',
+                'dbTyped' => 'datetime',
                 'required' => true,
             ],
             'l10n_mode' => 'exclude',
