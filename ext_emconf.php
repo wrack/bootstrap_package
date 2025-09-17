@@ -13,9 +13,9 @@ $EM_CONF[$_EXTKEY] = [
     'category' => 'templates',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.4.0-12.99.99',
-            'rte_ckeditor' => '10.4.0-12.99.99',
-            'seo' => '10.4.0-12.99.99'
+            'typo3' => '12.4.0-13.99.99',
+            'rte_ckeditor' => '12.4.0-13.99.99',
+            'seo' => '12.4.0-13.99.99'
         ],
         'conflicts' => [
             'css_styled_content' => '*',
@@ -37,5 +37,5 @@ $EM_CONF[$_EXTKEY] = [
     'author' => 'Benjamin Kott',
     'author_email' => 'info@bk2k.info',
     'author_company' => 'private',
-    'version' => '12.0.10',
+    'version' => '13.0.0',
 ];
