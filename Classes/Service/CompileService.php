@@ -10,6 +10,8 @@
 namespace BK2K\BootstrapPackage\Service;
 
 use BK2K\BootstrapPackage\Parser\ParserInterface;
+use BK2K\BootstrapPackage\Utility\TypoScriptUtility;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -33,10 +35,10 @@ class CompileService
      * @return string|null
      * @throws \Exception
      */
-    public function getCompiledFile(string $file): ?string
+    public function getCompiledFile(ServerRequestInterface $request, string $file): ?string
     {
         $absoluteFile = GeneralUtility::getFileAbsFileName($file);
-        $configuration = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_bootstrappackage.']['settings.'] ?? [];
+        $configuration = TypoScriptUtility::getSetup($request)['plugin.']['tx_bootstrappackage.']['settings.'] ?? [];
 
         // Ensure cache directory exists
         if (!file_exists(Environment::getPublicPath() . '/' . $this->tempDirectory)) {
@@ -48,18 +50,18 @@ class CompileService
             'file' => [
                 'absolute' => $absoluteFile,
                 'relative' => $file,
-                'info' => pathinfo($absoluteFile)
+                'info' => pathinfo($absoluteFile),
             ],
             'cache' => [
                 'tempDirectory' => $this->tempDirectory,
                 'tempDirectoryRelativeToRoot' => $this->tempDirectoryRelativeToRoot,
             ],
             'options' => [
-                'override' => $configuration['overrideParserVariables'] ? true: false,
-                'sourceMap' => $configuration['cssSourceMapping'] ? true : false,
-                'compress' => true
+                'override' => (bool) ($configuration['overrideParserVariables'] ?? false),
+                'sourceMap' => (bool) ($configuration['cssSourceMapping'] ?? false),
+                'compress' => true,
             ],
-            'variables' => []
+            'variables' => [],
         ];
 
         // Parser
@@ -67,19 +69,21 @@ class CompileService
             && is_array($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/bootstrap-package/css']['parser'])
         ) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/bootstrap-package/css']['parser'] as $className) {
-                $parser = GeneralUtility::makeInstance($className);
-                if ($parser instanceof ParserInterface
-                    && isset($settings['file']['info']['extension'])
-                    && $parser->supports($settings['file']['info']['extension'])
-                ) {
-                    if ($configuration['overrideParserVariables']) {
-                        $settings['variables'] = $this->getVariablesFromConstants($settings['file']['info']['extension']);
-                    }
-                    try {
-                        return $parser->compile($file, $settings);
-                    } catch (\Exception $e) {
-                        $this->clearCompilerCaches();
-                        throw $e;
+                if (class_exists($className)) {
+                    $parser = GeneralUtility::makeInstance($className);
+                    if ($parser instanceof ParserInterface
+                        && isset($settings['file']['info']['extension'])
+                        && $parser->supports($settings['file']['info']['extension'])
+                    ) {
+                        if ((bool) ($configuration['overrideParserVariables'] ?? false)) {
+                            $settings['variables'] = $this->getVariablesFromConstants($request, $settings['file']['info']['extension']);
+                        }
+                        try {
+                            return $parser->compile($file, $settings);
+                        } catch (\Exception $e) {
+                            $this->clearCompilerCaches();
+                            throw $e;
+                        }
                     }
                 }
             }
@@ -92,9 +96,9 @@ class CompileService
      * @param string $extension
      * @return array
      */
-    protected function getVariablesFromConstants(string $extension): array
+    protected function getVariablesFromConstants(ServerRequestInterface $request, string $extension): array
     {
-        $constants = $this->getConstants();
+        $constants = TypoScriptUtility::getConstants($request);
         $extension = strtolower($extension);
         $variables = [];
 
@@ -117,19 +121,6 @@ class CompileService
         }
 
         return $variables;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getConstants(): array
-    {
-        if ($GLOBALS['TSFE']->tmpl->flatSetup === null
-        || !is_array($GLOBALS['TSFE']->tmpl->flatSetup)
-        || count($GLOBALS['TSFE']->tmpl->flatSetup) === 0) {
-            $GLOBALS['TSFE']->tmpl->generateConfig();
-        }
-        return $GLOBALS['TSFE']->tmpl->flatSetup;
     }
 
     /**
