@@ -31,6 +31,8 @@ class BrandingService
             $extensionConfiguration = GeneralUtility::makeInstance(
                 ExtensionConfiguration::class
             );
+
+            /** @var array $backendConfiguration */
             $backendConfiguration = $extensionConfiguration->get('backend');
 
             if (!isset($backendConfiguration['loginLogo']) || trim($backendConfiguration['loginLogo']) === '') {
@@ -43,18 +45,7 @@ class BrandingService
                 $backendConfiguration['backendLogo'] = 'EXT:bootstrap_package/Resources/Public/Images/Backend/backend-logo.svg';
             }
 
-            // Workaround for
-            // https://review.typo3.org/c/Packages/TYPO3.CMS/+/62650
-            $reflection = new \ReflectionClass(ExtensionConfiguration::class);
-            $parameters = $reflection->getMethod('set')->getParameters();
-            $arguments = [];
-            $arguments[] = 'backend';
-            if (count($parameters) === 3) {
-                $arguments[] = '';
-            }
-            $arguments[] = $backendConfiguration;
-
-            $extensionConfiguration->set(...$arguments);
+            $extensionConfiguration->set('backend', $backendConfiguration);
         }
     }
 }

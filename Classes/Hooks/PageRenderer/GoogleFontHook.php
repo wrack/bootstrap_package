@@ -13,7 +13,7 @@ namespace BK2K\BootstrapPackage\Hooks\PageRenderer;
 use BK2K\BootstrapPackage\Service\GoogleFontService;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Http\ApplicationType;
-use TYPO3\CMS\Core\TypoScript\TemplateService;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -21,24 +21,14 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class GoogleFontHook
 {
-    /**
-     * @var array
-     */
-    protected $includeMapping = [
+    protected array $includeMapping = [
         'includeCSSLibs' => 'cssLibs',
-        'includeCSS' => 'cssFiles'
+        'includeCSS' => 'cssFiles',
     ];
 
-    /**
-     * @var \BK2K\BootstrapPackage\Service\GoogleFontService
-     */
-    protected $googleFontService;
+    protected ?GoogleFontService $googleFontService = null;
 
-    /**
-     * @param array $params
-     * @param \TYPO3\CMS\Core\Page\PageRenderer $pagerenderer
-     */
-    public function execute(&$params, &$pagerenderer): void
+    public function execute(array &$params, PageRenderer &$pagerenderer): void
     {
         if (!($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface ||
             !ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend() ||
@@ -53,7 +43,6 @@ class GoogleFontHook
                 foreach ($params[$section] as $file => $settings) {
                     $cachedFile = $this->getGoogleFontService()->getCachedFile($file);
                     if ($cachedFile !== null) {
-                        $this->adjustTypoScriptCssConfiguration($include, $file, $cachedFile);
                         $settings['file'] = $cachedFile;
                         $files[$cachedFile] = $settings;
                     } else {
@@ -65,46 +54,11 @@ class GoogleFontHook
         }
     }
 
-    /**
-     * @param string $include
-     * @param string $file
-     * @param string $cachedFile
-     */
-    protected function adjustTypoScriptCssConfiguration($include, $file, $cachedFile): void
-    {
-        $includeFilesConfiguration = $this->getTemplateService()->setup['page.'][$include . '.'];
-        if (is_array($includeFilesConfiguration) && count($includeFilesConfiguration) > 0) {
-            foreach ($includeFilesConfiguration as $includeKey => $includeFilename) {
-                if (substr($includeKey, -1) === '.') {
-                    continue;
-                }
-                if ($file === $includeFilename) {
-                    $this->getTemplateService()->setup['page.'][$include . '.'][$includeKey] = $cachedFile;
-                    break;
-                }
-            }
-        }
-    }
-
-    /**
-     * Get the google font service
-     *
-     * @return GoogleFontService
-     */
     protected function getGoogleFontService(): GoogleFontService
     {
         if ($this->googleFontService === null) {
             $this->googleFontService = GeneralUtility::makeInstance(GoogleFontService::class);
         }
         return $this->googleFontService;
-    }
-
-    /**
-     * @return TemplateService
-     */
-    private function getTemplateService(): TemplateService
-    {
-        $frontendController = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.controller', $GLOBALS['TSFE']);
-        return $frontendController->tmpl;
     }
 }

@@ -10,7 +10,9 @@ declare(strict_types = 1);
 
 namespace BK2K\BootstrapPackage\Service;
 
+use BK2K\BootstrapPackage\Events\ModifyIconProvidersEvent;
 use BK2K\BootstrapPackage\Icons\IconProviderInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -18,19 +20,23 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class IconService
 {
+    protected EventDispatcherInterface $eventDispatcher;
+
+    public function __construct()
+    {
+        $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
+    }
+
     public function getIconSetItems(array &$configuration): void
     {
         $iconSets = [];
-        $iconSets[] = [
-            'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.none',
-            'value' => ''
-        ];
+        $iconSets[] = ['LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.none', ''];
 
         $iconProviders = $this->getIconProviders();
         foreach ($iconProviders as $iconProvider) {
             $iconSets[] = [
-                'label' => $iconProvider->getName(),
-                'value' => $iconProvider->getIdentifier()
+                $iconProvider->getName(),
+                $iconProvider->getIdentifier(),
             ];
         }
 
@@ -41,9 +47,9 @@ class IconService
     {
         $iconItems = [];
         $iconItems[] = [
-            'label' => 'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.none',
-            'value' => 0,
-            'icon' => 'EXT:bootstrap_package/Resources/Public/Images/Icons/none.svg'
+            'LLL:EXT:bootstrap_package/Resources/Private/Language/Backend.xlf:option.none',
+            0,
+            'EXT:bootstrap_package/Resources/Public/Images/Icons/none.svg',
         ];
 
         $iconSetField = $configuration['config']['itemsProcConfig']['iconSetField'] ?? 'icon_set';
@@ -53,9 +59,9 @@ class IconService
             $icons = $iconProvider->getIconList()->getIcons();
             foreach ($icons as $icon) {
                 $iconItems[] = [
-                    'label' => $icon->getName(),
-                    'value' => $icon->getIdentifier(),
-                    'icon' => $icon->getPreviewImage()
+                    $icon->getName(),
+                    $icon->getIdentifier(),
+                    $icon->getPreviewImage(),
                 ];
             }
         }
@@ -82,10 +88,14 @@ class IconService
             && is_array($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/bootstrap-package/icons']['provider'])
         ) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/bootstrap-package/icons']['provider'] as $className) {
+                /** @var class-string<IconProviderInterface> $className */
                 $iconProviders[] = GeneralUtility::makeInstance($className);
             }
         }
 
-        return $iconProviders;
+        /** @var ModifyIconProvidersEvent $event */
+        $event = $this->eventDispatcher->dispatch(new ModifyIconProvidersEvent($iconProviders));
+
+        return $event->getIconProviders();
     }
 }

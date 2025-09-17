@@ -19,22 +19,22 @@ class ExternalMediaUtility
     /**
      * @var array Provider that can be handled, the provider is equal the hostname and needs a process function
      */
-    protected $mediaProvider = [
+    protected array $mediaProvider = [
         'youtube',
         'youtu',
-        'vimeo'
+        'vimeo',
     ];
 
     /**
      * Get the embed code for the given url if possible
      * and add a css class on the iframe
-     *
-     * @param string $url
-     * @param string $class
-     * @return string|null
      */
-    public function getEmbedCode(string $url, string $class): ?string
+    public function getEmbedCode(?string $url, ?string $class, ?string $title = null): ?string
     {
+        if ($url === null || $url === '') {
+            return null;
+        }
+
         // Prepare url
         $url = $this->setProtocolToHttps($url);
         // Get method
@@ -42,11 +42,17 @@ class ExternalMediaUtility
         if ($method !== null) {
             $embedUrl = $this->{$method}($url);
             if ($embedUrl !== null) {
-                return '<iframe ' . GeneralUtility::implodeAttributes([
-                        'class' => $class,
-                        'src' => $embedUrl,
-                        'frameborder' => '0'
-                    ], true) . ' allowfullscreen></iframe>';
+                $attributes = [
+                    'src' => $embedUrl,
+                    'frameborder' => '0',
+                ];
+                if ($title !== null && trim($title) !== '') {
+                    $attributes['title'] = trim($title);
+                }
+                if ($class !== null && trim($class) !== '') {
+                    $attributes['class'] = trim($class);
+                }
+                return '<iframe ' . GeneralUtility::implodeAttributes($attributes, true) . ' allowfullscreen></iframe>';
             }
         }
         return null;
@@ -54,9 +60,6 @@ class ExternalMediaUtility
 
     /**
      * Resolves if possible a method name to process the url
-     *
-     * @param string $url
-     * @return string|null
      */
     protected function getMethod(string $url): ?string
     {
@@ -75,19 +78,18 @@ class ExternalMediaUtility
 
     /**
      * Processes YouTube url
-     *
-     * @param string $url
-     * @return string|null
      */
     protected function processYoutube(string $url): ?string
     {
         $firstMatches = [];
         $pattern = '%^(?:https?://)?(?:www\.)?(?:youtu\.be/|youtube\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=))([^"&?/ ]{11})(?:.+)?$%xs';
-        if ((bool) preg_match($pattern, $url, $firstMatches)) {
+        preg_match($pattern, $url, $firstMatches);
+        if (isset($firstMatches[1])) {
             $toEmbed = $firstMatches[1];
             $patternForAdditionalParams = '%^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=))(?:[^"&?\/ ]{11})(.+)?(?:.+)?$%xs';
             $secondMatches = [];
-            if (preg_match($patternForAdditionalParams, $url, $secondMatches) > 1) {
+            preg_match($patternForAdditionalParams, $url, $secondMatches);
+            if (isset($secondMatches[1])) {
                 $toEmbed .= '?' . substr($secondMatches[1], 1);
             }
             return 'https://www.youtube-nocookie.com/embed/' . $toEmbed;
@@ -97,9 +99,6 @@ class ExternalMediaUtility
 
     /**
      * Process YouTube short url
-     *
-     * @param string $url
-     * @return string|null
      */
     protected function processYoutu(string $url): ?string
     {
@@ -108,9 +107,6 @@ class ExternalMediaUtility
 
     /**
      * Processes Vimeo url
-     *
-     * @param string $url
-     * @return string
      */
     protected function processVimeo(string $url): ?string
     {
@@ -123,9 +119,6 @@ class ExternalMediaUtility
 
     /**
      * Change every protocol to https and add it if missing
-     *
-     * @param  string $url URL
-     * @return string
      */
     protected function setProtocolToHttps(string $url): string
     {

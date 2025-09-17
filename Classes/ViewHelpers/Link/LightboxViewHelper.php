@@ -23,16 +23,14 @@ class LightboxViewHelper extends AbstractTagBasedViewHelper
      */
     protected $tagName = 'a';
 
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
-        $this->registerUniversalTagAttributes();
-        $this->registerTagAttribute('rel', 'string', 'Specifies the relationship between the current document and the linked document', false);
 
         $this->registerArgument('caption', 'string', 'Specifies an caption text', false);
+        $this->registerArgument('lightbox-title', 'string', 'Specifies an title text', false);
+        $this->registerArgument('lightbox-alt', 'string', 'Specifies an alt text', false);
+        $this->registerArgument('lightbox-caption', 'string', 'Specifies an caption text', false);
 
         $this->registerArgument('image', 'object', 'image', true);
         $this->registerArgument('crop', 'string|bool', 'overrule cropping of image (setting to FALSE disables the cropping set in FileReference)');
@@ -74,10 +72,12 @@ class LightboxViewHelper extends AbstractTagBasedViewHelper
             $imageUri = $imageService->getImageUri($processedImage, isset($this->arguments['absolute']) ? $this->arguments['absolute'] : false);
 
             $this->tag->addAttribute('href', $imageUri);
-            $this->tag->addAttribute('data-lightbox-width', $processedImage->getProperty('width'));
-            $this->tag->addAttribute('data-lightbox-height', $processedImage->getProperty('height'));
-            $this->tag->addAttribute('data-lightbox-caption', isset($this->arguments['caption']) ? $this->arguments['caption'] : null);
-            $this->tag->setContent($this->renderChildren());
+            $this->tag->addAttribute('data-lightbox-width', $processedImage->getProperty('width') !== null ? (string)($processedImage->getProperty('width')) : null);
+            $this->tag->addAttribute('data-lightbox-height', $processedImage->getProperty('height') !== null ? (string)($processedImage->getProperty('height')) : null);
+            $this->tag->addAttribute('data-lightbox-title', isset($this->arguments['lightbox-title']) ? $this->arguments['lightbox-title'] : null);
+            $this->tag->addAttribute('data-lightbox-alt', isset($this->arguments['lightbox-alt']) ? $this->arguments['lightbox-alt'] : null);
+            $this->tag->addAttribute('data-lightbox-caption', isset($this->arguments['lightbox-caption']) ? $this->arguments['lightbox-caption'] : null);
+            $this->tag->setContent((string)($this->renderChildren()));
             $this->tag->forceClosingTag(true);
         } catch (ResourceDoesNotExistException $e) {
             // thrown if file does not exist

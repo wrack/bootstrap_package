@@ -55,14 +55,7 @@ class SvgUtility
             }
 
             // Disables the functionality to allow external entities to be loaded when parsing the XML, must be kept
-            $previousValueOfEntityLoader = false;
-            if (PHP_MAJOR_VERSION < 8) {
-                $previousValueOfEntityLoader = libxml_disable_entity_loader(true);
-            }
             $svgElement = simplexml_load_string($svgContent);
-            if (PHP_MAJOR_VERSION < 8) {
-                libxml_disable_entity_loader($previousValueOfEntityLoader);
-            }
             if (!$svgElement instanceof \SimpleXMLElement) {
                 return '';
             }
@@ -70,15 +63,15 @@ class SvgUtility
             // Override attributes
             $class = htmlspecialchars($class ?? '');
             $svgElement = self::setAttribute($svgElement, 'class', $class);
-            $width = intval($width) > 0 ? (string) intval($width) : null;
+            $width = (int)($width) > 0 ? (string) (int)($width) : null;
             $svgElement = self::setAttribute($svgElement, 'width', $width);
-            $height = intval($height) > 0 ? (string) intval($height) : null;
+            $height = (int)($height) > 0 ? (string) (int)($height) : null;
             $svgElement = self::setAttribute($svgElement, 'height', $height);
+            $svgElement = self::setAttribute($svgElement, 'aria-hidden', 'true');
 
             // remove xml version tag
             $domXml = dom_import_simplexml($svgElement);
-            /** @phpstan-ignore-next-line */
-            if (!$domXml instanceof \DOMElement || !$domXml->ownerDocument instanceof \DOMDocument) {
+            if (!$domXml->ownerDocument instanceof \DOMDocument) {
                 return '';
             }
 

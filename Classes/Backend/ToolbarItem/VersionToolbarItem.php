@@ -36,16 +36,17 @@ class VersionToolbarItem
 
         // Try to get current version from git
         if (file_exists($extensionDirectory . '.git')) {
+            $returnCode = 0;
             CommandUtility::exec('git --version', $_, $returnCode);
             if ((int)$returnCode === 0) {
                 $currentDir = (string) getcwd();
                 chdir($extensionDirectory);
-                $tag = trim(CommandUtility::exec('git tag -l --points-at HEAD'));
+                $tag = trim((string) CommandUtility::exec('git tag -l --points-at HEAD'));
                 if ($tag !== '') {
                     $value = $tag;
                 } else {
-                    $branch = trim(CommandUtility::exec('git rev-parse --abbrev-ref HEAD'));
-                    $revision = trim(CommandUtility::exec('git rev-parse --short HEAD'));
+                    $branch = trim((string) CommandUtility::exec('git rev-parse --abbrev-ref HEAD'));
+                    $revision = trim((string) CommandUtility::exec('git rev-parse --short HEAD'));
                     $value = $branch . ', ' . $revision;
                 }
                 chdir($currentDir);
