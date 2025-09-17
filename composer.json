@@ -32,7 +32,7 @@
         "issues": "https://github.com/benjaminkott/bootstrap_package/issues"
     },
     "require": {
-        "php": ">=7.2.0",
+        "php": ">=8.2.0",
         "ext-PDO": "*",
         "ext-dom": "*",
         "ext-filter": "*",
@@ -41,16 +41,16 @@
         "ext-libxml": "*",
         "ext-simplexml": "*",
         "scssphp/scssphp": "^1.8.1",
-        "typo3/cms-backend": "^10.4 || ^11.5 || 11.*.*@dev || ^12.4",
-        "typo3/cms-core": "^10.4 || ^11.5 || 11.*.*@dev || ^12.4",
-        "typo3/cms-extbase": "^10.4 || ^11.5 || 11.*.*@dev || ^12.4",
-        "typo3/cms-extensionmanager": "^10.4 || ^11.5 || 11.*.*@dev || ^12.4",
-        "typo3/cms-fluid": "^10.4 || ^11.5 || 11.*.*@dev || ^12.4",
-        "typo3/cms-frontend": "^10.4 || ^11.5 || 11.*.*@dev || ^12.4",
-        "typo3/cms-install": "^10.4 || ^11.5 || 11.*.*@dev || ^12.4",
-        "typo3/cms-rte-ckeditor": "^10.4 || ^11.5 || 11.*.*@dev || ^12.4",
-        "typo3/cms-seo": "^10.4 || ^11.5 || 11.*.*@dev || ^12.4",
-        "typo3fluid/fluid": "^2.5.2"
+        "typo3/cms-backend": "^12.4 || ^13.4",
+        "typo3/cms-core": "^12.4 || ^13.4",
+        "typo3/cms-extbase": "^12.4 || ^13.4",
+        "typo3/cms-extensionmanager": "^12.4 || ^13.4",
+        "typo3/cms-fluid": "^12.4 || ^13.4",
+        "typo3/cms-frontend": "^12.4 || ^13.4",
+        "typo3/cms-install": "^12.4 || ^13.4",
+        "typo3/cms-rte-ckeditor": "^12.4 || ^13.4",
+        "typo3/cms-seo": "^12.4 || ^13.4",
+        "typo3fluid/fluid": "^2.5.2 || ^4.4.3"
     },
     "require-dev": {
         "b13/container": "^1.3",
