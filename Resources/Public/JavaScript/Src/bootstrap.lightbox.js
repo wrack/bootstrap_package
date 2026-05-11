@@ -58,6 +58,9 @@ window.addEventListener('DOMContentLoaded', function() {
             if (element.hasAttribute('title') && element.getAttribute('title') !== '') {
                 title = element.getAttribute('title');
             }
+            if (!title && "lightboxTitle" in element.dataset && element.dataset.lightboxTitle !== '') {
+                title = element.dataset.lightboxTitle;
+            }
             let caption = null;
             if ("lightboxCaption" in element.dataset && element.dataset.lightboxCaption !== '') {
                 caption = element.dataset.lightboxCaption
